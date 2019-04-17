@@ -3,6 +3,7 @@ package com.wzl.hbase;
 import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.apache.hadoop.hbase.*;
 import org.apache.hadoop.hbase.client.*;
+import org.apache.hadoop.hbase.filter.FilterList;
 import org.apache.hadoop.hbase.util.Bytes;
 
 import java.io.IOException;
@@ -111,6 +112,23 @@ public class HBaseApi {
         return true;
     }
 
+    /**
+     * 根据过滤器筛选数据
+     * @param tableName  表名
+     * @param rowKey  列名
+     * @param filterList 过滤规则
+     * @return 查询结果
+     */
+    public static Result getRow(String tableName, String rowKey, FilterList filterList){
+        try(Table table = HBaseConn.getTable(tableName)){
+            Get get = new Get(Bytes.toBytes(rowKey));
+            get.setFilter(filterList);
+            return table.get(get);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
     /**
      * 全表扫描
      * @param tableName 表名
