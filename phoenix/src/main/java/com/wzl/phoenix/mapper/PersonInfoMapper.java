@@ -1,6 +1,7 @@
 package com.wzl.phoenix.mapper;
 
 import com.wzl.phoenix.entity.Person;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -12,6 +13,9 @@ public interface PersonInfoMapper {
 
     @Insert("upsert into PERSON(ID,NAME,AGE,SEX) VALUES(#{person.id},#{person.name},#{person.age},#{person.sex})")
     public void addPerson(@Param("person") Person person);
+
+    @Delete("delete from PERSON where id = #{id}")
+    public void deletePerson(@Param("id")int id);
 
     public Person getPerson(int id);
 
