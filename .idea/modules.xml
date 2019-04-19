@@ -11,6 +11,7 @@
       <module fileurl="file://$PROJECT_DIR$/hos/hos-sdk/hos-sdk.iml" filepath="$PROJECT_DIR$/hos/hos-sdk/hos-sdk.iml" />
       <module fileurl="file://$PROJECT_DIR$/hos/hos-server/hos-server.iml" filepath="$PROJECT_DIR$/hos/hos-server/hos-server.iml" />
       <module fileurl="file://$PROJECT_DIR$/hos/hos-web/hos-web.iml" filepath="$PROJECT_DIR$/hos/hos-web/hos-web.iml" />
+      <module fileurl="file://$PROJECT_DIR$/phoenix/phoenix.iml" filepath="$PROJECT_DIR$/phoenix/phoenix.iml" />
     </modules>
   </component>
 </project>

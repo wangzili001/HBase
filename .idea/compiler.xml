@@ -13,6 +13,7 @@
         <module name="hos-sdk" />
         <module name="hos-server" />
         <module name="hos-web" />
+        <module name="phoenix" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -24,6 +25,12 @@
       <module name="hos-sdk" target="1.8" />
       <module name="hos-server" target="1.8" />
       <module name="hos-web" target="1.8" />
+      <module name="phoenix" target="1.8" />
     </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="phoenix" options="-parameters" />
+    </option>
   </component>
 </project>
