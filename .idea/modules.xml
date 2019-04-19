@@ -4,6 +4,13 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/HBase.iml" filepath="$PROJECT_DIR$/.idea/HBase.iml" />
       <module fileurl="file://$PROJECT_DIR$/hbase/hbase.iml" filepath="$PROJECT_DIR$/hbase/hbase.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hos/hos.iml" filepath="$PROJECT_DIR$/hos/hos.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hos/hos-common/hos-common.iml" filepath="$PROJECT_DIR$/hos/hos-common/hos-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hos/hos-core/hos-core.iml" filepath="$PROJECT_DIR$/hos/hos-core/hos-core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hos/hos-mybatis/hos-mybatis.iml" filepath="$PROJECT_DIR$/hos/hos-mybatis/hos-mybatis.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hos/hos-sdk/hos-sdk.iml" filepath="$PROJECT_DIR$/hos/hos-sdk/hos-sdk.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hos/hos-server/hos-server.iml" filepath="$PROJECT_DIR$/hos/hos-server/hos-server.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hos/hos-web/hos-web.iml" filepath="$PROJECT_DIR$/hos/hos-web/hos-web.iml" />
     </modules>
   </component>
 </project>
