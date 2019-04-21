@@ -1,5 +1,6 @@
 package com.wzl.bigtable.hos.server.dao;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.wzl.bigtable.common.BucketModel;
 import org.apache.ibatis.annotations.*;
 
@@ -9,7 +10,7 @@ import java.util.List;
  * Created by wzl
  */
 @Mapper
-public interface BucketMapper {
+public interface BucketMapper extends BaseMapper<BucketModel> {
 
   @Insert("insert into HOS_BUCKET\n" +
           "    (BUCKET_ID,BUCKET_NAME,CREATOR,DETAIL,CREATE_TIME)\n" +
@@ -30,21 +31,21 @@ public interface BucketMapper {
 
   @Select("select * from HOS_BUCKET where\n" +
           "    BUCKET_ID=#{bucketId}")
-  @ResultMap("BucketResultMap")
+//  @ResultMap("BucketResultMap")
   BucketModel getBucket(@Param("bucketId") String bucketId);
 
   @Select(" select * from HOS_BUCKET where\n" +
           "    BUCKET_NAME=#{bucketName}")
-  @ResultMap("BucketResultMap")
+//  @ResultMap("BucketResultMap")
   BucketModel getBucketByName(@Param("bucketName") String bucketName);
 
   @Select(" select * from HOS_BUCKET where\n" +
           "    CREATOR=#{creator}")
-  @ResultMap("BucketResultMap")
+//  @ResultMap("BucketResultMap")
   List<BucketModel> getBucketByCreator(@Param("creator") String creator);
 
   @Select(" select b.* from HOS_BUCKET b,SERVICE_AUTH s where\n" +
           "    s.TARGET_TOKEN=#{token} and s.BUCKET_NAME=b.BUCKET_NAME")
-  @ResultMap("BucketResultMap")
+//  @ResultMap("BucketResultMap")
   List<BucketModel> getUserAuthorizedBuckets(@Param("token") String token);
 }
