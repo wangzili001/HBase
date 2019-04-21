@@ -24,7 +24,7 @@ import java.util.Set;
 @MapperScan(basePackages = HosDataSourceConfig.PACKAGE, sqlSessionFactoryRef = "HosSqlSessionFactory")
 public class HosDataSourceConfig {
 
-  static final String PACKAGE = "com.wzl.bigdata.hos.**";
+  static final String PACKAGE = "com.wzl.bigtable.hos.**";
 
   /**
    * hosDataSource.
