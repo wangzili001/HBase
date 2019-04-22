@@ -21,18 +21,19 @@ public class BucketMapperTest extends BaseTest {
     @Autowired
     @Qualifier("userServiceImpl")
     IUserService userService;
+    @Autowired
+    @Qualifier("bucketServiceImpl")
+    IBucketService iBucketService;
 
     @Test
     public void addBucket() {
-        BucketModel bucketModel = new BucketModel("test1", "jixin", "");
-        bucketMapper.addBucket(bucketModel);
-        UserInfo userInfo = new UserInfo("jixin", "123456", SystemRole.ADMIN, "");
+        UserInfo wzl = userService.getUserInfoByName("wzl");
+        iBucketService.addBucket(wzl,"test1","this is test bucket");
+        UserInfo userInfo = new UserInfo("wsj", "123456", SystemRole.ADMIN, "");
         userService.addUser(userInfo);
         ServiceAuth serviceAuth = new ServiceAuth();
         serviceAuth.setTargetToken(userInfo.getUserId());
-        serviceAuth.setBucketName(bucketModel.getBucketName());
+        serviceAuth.setBucketName("test1");
         authService.addAuth(serviceAuth);
-        BucketModel bucketModel2 = new BucketModel("test2", "jixin", "");
-        bucketMapper.addBucket(bucketModel2);
     }
 }

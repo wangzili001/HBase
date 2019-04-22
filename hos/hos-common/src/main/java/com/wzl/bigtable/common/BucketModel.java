@@ -11,18 +11,18 @@ import java.util.Date;
  */
 public class BucketModel {
 
-  private String bucketId;
-  private String bucketName;
-  private String creator;
-  private String detail;
-  private Date createTime;
+  private String BucketId;
+  private String BucketName;
+  private String Creator;
+  private String Detail;
+  private Date CreateTime;
 
-  public BucketModel(String bucketName, String creator, String detail) {
-    this.bucketId = CoreUtil.getUUID();
-    this.bucketName = bucketName;
-    this.createTime = new Date();
-    this.creator = creator;
-    this.detail = detail;
+  public BucketModel(String BucketName, String Creator, String Detail) {
+    this.BucketId = CoreUtil.getUUID();
+    this.BucketName = BucketName;
+    this.CreateTime = new Date();
+    this.Creator = Creator;
+    this.Detail = Detail;
   }
 
   public BucketModel() {
@@ -30,42 +30,42 @@ public class BucketModel {
   }
 
   public String getBucketId() {
-    return bucketId;
+    return BucketId;
   }
 
-  public void setBucketId(String bucketId) {
-    this.bucketId = bucketId;
+  public void setBucketId(String BucketId) {
+    this.BucketId = BucketId;
   }
 
   public String getBucketName() {
-    return bucketName;
+    return BucketName;
   }
 
-  public void setBucketName(String bucketName) {
-    this.bucketName = bucketName;
+  public void setBucketName(String BucketName) {
+    this.BucketName = BucketName;
   }
 
   public String getCreator() {
-    return creator;
+    return Creator;
   }
 
-  public void setCreator(String creator) {
-    this.creator = creator;
+  public void setCreator(String Creator) {
+    this.Creator = Creator;
   }
 
   public String getDetail() {
-    return detail;
+    return Detail;
   }
 
-  public void setDetail(String detail) {
-    this.detail = detail;
+  public void setDetail(String Detail) {
+    this.Detail = Detail;
   }
 
   public Date getCreateTime() {
-    return createTime;
+    return CreateTime;
   }
 
-  public void setCreateTime(Date createTime) {
-    this.createTime = createTime;
+  public void setCreateTime(Date CreateTime) {
+    this.CreateTime = CreateTime;
   }
 }

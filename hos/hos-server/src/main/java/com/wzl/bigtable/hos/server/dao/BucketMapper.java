@@ -13,39 +13,35 @@ import java.util.List;
 public interface BucketMapper extends BaseMapper<BucketModel> {
 
   @Insert("insert into HOS_BUCKET\n" +
-          "    (BUCKET_ID,BUCKET_NAME,CREATOR,DETAIL,CREATE_TIME)\n" +
+          "    (BucketId,BucketName,Creator,Detail,CreateTime)\n" +
           "    values\n" +
-          "    (#{bucket.bucketId},#{bucket.bucketName},#{bucket.creator}\n" +
-          "    ,#{bucket.detail},#{bucket.createTime})")
+          "    (#{bucket.bucketId},#{bucket.bucketName},#{bucket.Creator}\n" +
+          "    ,#{bucket.Detail},#{bucket.createTime})")
   void addBucket(@Param("bucket") BucketModel bucketModel);
 
-  @Update("update HOS_BUCKET set BUCKET_NAME=#{bucketName}\n" +
-          "    <if test=\"detail!=null and detail!='' \">\n" +
-          "      , DETAIL=#{detail}\n" +
+  @Update("update HOS_BUCKET set BucketName=#{bucketName}\n" +
+          "    <if test=\"Detail!=null and Detail!='' \">\n" +
+          "      , Detail=#{Detail}\n" +
           "    </if>\n" +
-          "    where BUCKET_NAME=#{bucketName}")
-  int updateBucket(@Param("bucketName") String bucketName, @Param("detail") String detail);
+          "    where BucketName=#{bucketName}")
+  int updateBucket(@Param("bucketName") String bucketName, @Param("Detail") String Detail);
 
-  @Delete("delete from HOS_BUCKET where BUCKET_NAME=#{bucketName}")
+  @Delete("delete from HOS_BUCKET where BucketName=#{bucketName}")
   int deleteBucket(@Param("bucketName") String bucketName);
 
   @Select("select * from HOS_BUCKET where\n" +
-          "    BUCKET_ID=#{bucketId}")
-//  @ResultMap("BucketResultMap")
+          "    BucketId=#{bucketId}")
   BucketModel getBucket(@Param("bucketId") String bucketId);
 
   @Select(" select * from HOS_BUCKET where\n" +
-          "    BUCKET_NAME=#{bucketName}")
-//  @ResultMap("BucketResultMap")
+          "    BucketName=#{bucketName}")
   BucketModel getBucketByName(@Param("bucketName") String bucketName);
 
   @Select(" select * from HOS_BUCKET where\n" +
-          "    CREATOR=#{creator}")
-//  @ResultMap("BucketResultMap")
-  List<BucketModel> getBucketByCreator(@Param("creator") String creator);
+          "    Creator=#{Creator}")
+  List<BucketModel> getBucketByCreator(@Param("Creator") String Creator);
 
   @Select(" select b.* from HOS_BUCKET b,SERVICE_AUTH s where\n" +
-          "    s.TARGET_TOKEN=#{token} and s.BUCKET_NAME=b.BUCKET_NAME")
-//  @ResultMap("BucketResultMap")
+          "    s.TargetToken=#{token} and s.BucketName=b.BucketName")
   List<BucketModel> getUserAuthorizedBuckets(@Param("token") String token);
 }

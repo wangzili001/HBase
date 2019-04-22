@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -23,6 +24,8 @@ public class BucketServiceImpl implements IBucketService {
   @Autowired
   BucketMapper bucketMapper;
   @Autowired
+  IBucketService iBucketService;
+  @Autowired
   @Qualifier("authServiceImpl")
   IAuthService authService;
 
@@ -34,6 +37,7 @@ public class BucketServiceImpl implements IBucketService {
     ServiceAuth serviceAuth = new ServiceAuth();
     serviceAuth.setBucketName(bucketName);
     serviceAuth.setTargetToken(userInfo.getUserId());
+    serviceAuth.setAuthTime(new Date());
     authService.addAuth(serviceAuth);
     return true;
   }
