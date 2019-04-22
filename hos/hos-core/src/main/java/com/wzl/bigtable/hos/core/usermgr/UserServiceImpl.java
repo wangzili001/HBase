@@ -1,6 +1,7 @@
 package com.wzl.bigtable.hos.core.usermgr;
 
 import com.google.common.base.Strings;
+import com.wzl.bigtable.hos.core.authmgr.dao.ServiceAuthMapper;
 import com.wzl.bigtable.hos.core.authmgr.dao.TokenInfoMapper;
 import com.wzl.bigtable.hos.core.authmgr.model.TokenInfo;
 import com.wzl.bigtable.hos.core.usermgr.model.UserInfo;
@@ -27,6 +28,9 @@ public class UserServiceImpl implements IUserService {
 
   @Autowired
   TokenInfoMapper tokenInfoMapper;
+
+  @Autowired
+  ServiceAuthMapper serviceAuthMapper;
 
   @Override
   public boolean addUser(UserInfo userInfo) {
@@ -57,7 +61,8 @@ public class UserServiceImpl implements IUserService {
   public boolean deleteUser(String userId) {
     userInfoMapper.deleteUser(userId);
     //todo delete token
-//    tokenInfoMapper.deleteToken(userId);
+    tokenInfoMapper.deleteToken(userId);
+    serviceAuthMapper.deleteAuthByToken(userId);
     return true;
   }
 

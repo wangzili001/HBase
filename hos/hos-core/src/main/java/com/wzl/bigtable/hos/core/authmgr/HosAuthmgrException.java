@@ -4,7 +4,7 @@ package com.wzl.bigtable.hos.core.authmgr;
 import com.wzl.bigtable.hos.core.HosException;
 
 /**
- * Created by jixin on 18-3-8.
+ * Created by wzl.
  */
 public class HosAuthmgrException extends HosException {
 

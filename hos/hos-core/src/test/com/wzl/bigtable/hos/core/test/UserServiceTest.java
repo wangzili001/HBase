@@ -25,15 +25,13 @@ public class UserServiceTest extends BaseTest {
 
   @Test
   public void getUser() {
-    UserInfo userInfo = userService.getUserInfoByName("jixin");
-    System.out
-        .println(
-            userInfo.getUserId() + "|" + userInfo.getUserName() + "|" + userInfo.getPassword());
+    UserInfo userInfo = userService.getUserInfoByName("wzl");
+    System.out.println(userInfo.getUserId() + "|" + userInfo.getUserName() + "|" + userInfo.getPassword());
   }
 
   @Test
   public void deleteUser() {
-    UserInfo userInfo = userService.getUserInfoByName("jixin");
+    UserInfo userInfo = userService.getUserInfoByName("wsj");
     userService.deleteUser(userInfo.getUserId());
   }
 }

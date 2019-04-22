@@ -27,6 +27,14 @@ public class AuthServiceTest extends BaseTest {
   }
 
   @Test
+  public void getTokenByUser(){
+      List<TokenInfo> tokenInfos = authService.getTokenInfos("wzl");
+      tokenInfos.forEach(tokenInfo -> {
+          System.out.println(tokenInfo);
+      });
+  }
+
+  @Test
   public void refreshToken() {
     List<TokenInfo> tokenInfos = authService.getTokenInfos("wzl");
     tokenInfos.forEach(tokenInfo -> {
