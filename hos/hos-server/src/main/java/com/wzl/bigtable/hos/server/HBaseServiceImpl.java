@@ -28,7 +28,33 @@ public class HBaseServiceImpl {
             admin.createTable(hTableDescriptor, splitKeys);
         } catch (IOException e) {
             e.printStackTrace();
-            throw new HosServerException(ErrorCodes.ERROR_HBASE, "create table error");
+            String msg = String.format("create table=%s error. msg=%s", tableName, e.getMessage());
+            throw new HosServerException(ErrorCodes.ERROR_HBASE, msg);
+        }
+        return true;
+    }
+    /**
+     * createTable.
+     *
+     * @param tableName tableName
+     * @param cfs cfs
+     * @return success of failed
+     */
+    public static boolean createTable(Connection connection, String tableName, String[] cfs) {
+        try (HBaseAdmin admin = (HBaseAdmin) connection.getAdmin()) {
+            if (admin.tableExists(tableName)) {
+                return false;
+            }
+            HTableDescriptor tableDesc = new HTableDescriptor(TableName.valueOf(tableName));
+            for (int i = 0; i < cfs.length; i++) {
+                HColumnDescriptor hcolumnDescriptor = new HColumnDescriptor(cfs[i]);
+                hcolumnDescriptor.setMaxVersions(1);
+                tableDesc.addFamily(hcolumnDescriptor);
+            }
+            admin.createTable(tableDesc);
+        } catch (Exception e) {
+            String msg = String.format("create table=%s error. msg=%s", tableName, e.getMessage());
+            throw new HosServerException(ErrorCodes.ERROR_HBASE, msg);
         }
         return true;
     }
@@ -40,7 +66,8 @@ public class HBaseServiceImpl {
             admin.disableTable(tableName);
         } catch (IOException e) {
             e.printStackTrace();
-            throw new HosServerException(ErrorCodes.ERROR_HBASE, "delete table error");
+            String msg = String.format("delete table=%s error. msg=%s", tableName, e.getMessage());
+            throw new HosServerException(ErrorCodes.ERROR_HBASE, msg);
         }
         return true;
     }
