@@ -127,6 +127,21 @@ public class HBaseServiceImpl {
             throw new HosServerException(ErrorCodes.ERROR_HBASE, "get scan error");
         }
     }
+    /**
+     * getRow.
+     */
+    public static Result getRow(Connection connection, String tableName, String row, FilterList filterList) {
+        Result rs;
+        try (Table table = connection.getTable(TableName.valueOf(tableName))) {
+            Get g = new Get(Bytes.toBytes(row));
+            g.setFilter(filterList);
+            rs = table.get(g);
+        } catch (IOException e) {
+            String msg = String.format("get row from table=%s error. msg=%s", tableName, e.getMessage());
+            throw new HosServerException(ErrorCodes.ERROR_HBASE, msg);
+        }
+        return rs;
+    }
     //获取scanner
     public static ResultScanner getScananer(Connection connection, String tableName, String startKey, String endKey, FilterList filterList){
         Scan scan = new Scan();
@@ -164,12 +179,25 @@ public class HBaseServiceImpl {
     }
 
     //incrementcolumnvalue  通过这个方法生成目录的seqid
-    public static long incrementColumnValue(Connection connection,String tableName,String row,String cf,String qual,int num){
+    public static long incrementColumnValue(Connection connection,String tableName,String row,byte[] cf,byte[] qual,int num){
         try (Table table = connection.getTable(TableName.valueOf(tableName))){
-            return table.incrementColumnValue(row.getBytes(),cf.getBytes(),qual.getBytes(),num);
+            return table.incrementColumnValue(row.getBytes(),cf,qual,num);
         } catch (IOException e) {
             e.printStackTrace();
             throw new HosServerException(ErrorCodes.ERROR_HBASE, "put rows error");
+        }
+    }
+    /**
+     * existsRow.
+     */
+    public static boolean existsRow(Connection connection, String tableName, String row) {
+        try (Table table = connection.getTable(TableName.valueOf(tableName))) {
+            Get g = new Get(Bytes.toBytes(row));
+            return table.exists(g);
+        } catch (IOException e) {
+            String msg = String
+                    .format("check exists row from table=%s error. msg=%s", tableName, e.getMessage());
+            throw new HosServerException(ErrorCodes.ERROR_HBASE, msg);
         }
     }
 }
