@@ -9,6 +9,7 @@
         <option value="$PROJECT_DIR$/hbase/pom.xml" />
         <option value="$PROJECT_DIR$/hos/pom.xml" />
         <option value="$PROJECT_DIR$/phoenix/pom.xml" />
+        <option value="$PROJECT_DIR$/phone/pom.xml" />
       </list>
     </option>
   </component>

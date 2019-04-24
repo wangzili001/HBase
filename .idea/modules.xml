@@ -3,6 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/HBase.iml" filepath="$PROJECT_DIR$/.idea/HBase.iml" />
+      <module fileurl="file://$PROJECT_DIR$/phone/ct-common/ct-common.iml" filepath="$PROJECT_DIR$/phone/ct-common/ct-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/phone/ct-producer/ct-producer.iml" filepath="$PROJECT_DIR$/phone/ct-producer/ct-producer.iml" />
       <module fileurl="file://$PROJECT_DIR$/hbase/hbase.iml" filepath="$PROJECT_DIR$/hbase/hbase.iml" />
       <module fileurl="file://$PROJECT_DIR$/hos/hos.iml" filepath="$PROJECT_DIR$/hos/hos.iml" />
       <module fileurl="file://$PROJECT_DIR$/hos/hos-common/hos-common.iml" filepath="$PROJECT_DIR$/hos/hos-common/hos-common.iml" />
@@ -12,6 +14,7 @@
       <module fileurl="file://$PROJECT_DIR$/hos/hos-server/hos-server.iml" filepath="$PROJECT_DIR$/hos/hos-server/hos-server.iml" />
       <module fileurl="file://$PROJECT_DIR$/hos/hos-web/hos-web.iml" filepath="$PROJECT_DIR$/hos/hos-web/hos-web.iml" />
       <module fileurl="file://$PROJECT_DIR$/phoenix/phoenix.iml" filepath="$PROJECT_DIR$/phoenix/phoenix.iml" />
+      <module fileurl="file://$PROJECT_DIR$/phone/phone.iml" filepath="$PROJECT_DIR$/phone/phone.iml" />
     </modules>
   </component>
 </project>
