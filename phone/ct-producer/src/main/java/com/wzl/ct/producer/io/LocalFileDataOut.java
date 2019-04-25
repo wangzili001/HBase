@@ -17,7 +17,7 @@ public class LocalFileDataOut implements DataOut {
     @Override
     public void setPath(String path) {
         try {
-            writer = new PrintWriter(new OutputStreamWriter(new FileOutputStream(path),"UTF-8"));
+            writer = new PrintWriter(new OutputStreamWriter(new FileOutputStream(path), "UTF-8"));
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         } catch (FileNotFoundException e) {
@@ -37,7 +37,7 @@ public class LocalFileDataOut implements DataOut {
      */
     @Override
     public void write(String data) throws IOException {
-        writer.print(data);
+        writer.println(data);
         writer.flush();
     }
 

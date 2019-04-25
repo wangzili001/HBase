@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact name="ct-producer:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/ct_producer_jar</output-path>
+    <root id="root">
+      <element id="archive" name="ct-producer.jar">
+        <element id="directory" name="META-INF">
+          <element id="file-copy" path="$PROJECT_DIR$/phone/ct-producer/src/main/resources/META-INF/MANIFEST.MF" />
+        </element>
+        <element id="module-output" name="ct-producer" />
+        <element id="module-output" name="ct-common" />
+      </element>
+    </root>
+  </artifact>
+</component>

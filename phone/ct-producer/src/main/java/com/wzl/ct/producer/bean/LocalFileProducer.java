@@ -8,8 +8,6 @@ import com.wzl.ct.common.bean.DataOut;
 import com.wzl.ct.common.bean.Producer;
 
 import java.io.IOException;
-import java.text.DecimalFormat;
-import java.text.MessageFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
@@ -72,7 +70,7 @@ public class LocalFileProducer implements Producer {
     }
 
     @Override
-    public void setOut(DataOut dataOut) {
+    public void setOut(DataOut out) {
         this.out = out;
     }
 
