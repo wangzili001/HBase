@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/HBase.iml" filepath="$PROJECT_DIR$/.idea/HBase.iml" />
       <module fileurl="file://$PROJECT_DIR$/phone/ct-common/ct-common.iml" filepath="$PROJECT_DIR$/phone/ct-common/ct-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/phone/ct-consumer/ct-consumer.iml" filepath="$PROJECT_DIR$/phone/ct-consumer/ct-consumer.iml" />
       <module fileurl="file://$PROJECT_DIR$/phone/ct-producer/ct-producer.iml" filepath="$PROJECT_DIR$/phone/ct-producer/ct-producer.iml" />
       <module fileurl="file://$PROJECT_DIR$/hbase/hbase.iml" filepath="$PROJECT_DIR$/hbase/hbase.iml" />
       <module fileurl="file://$PROJECT_DIR$/hos/hos.iml" filepath="$PROJECT_DIR$/hos/hos.iml" />

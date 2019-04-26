@@ -7,6 +7,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="ct-common" />
+        <module name="ct-consumer" />
         <module name="ct-producer" />
         <module name="hbase" />
         <module name="hos-common" />
@@ -20,6 +21,7 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="ct-common" target="6" />
+      <module name="ct-consumer" target="1.5" />
       <module name="ct-producer" target="8" />
       <module name="hbase" target="8" />
       <module name="hos" target="1.8" />

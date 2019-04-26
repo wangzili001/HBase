@@ -53,7 +53,7 @@ public class LocalFileProducer implements Producer {
                 //生成随机通话时长
                 String duration = NumberUtil.format(new Random().nextInt(3000),4);
                 //生成通话记录
-                Calllog calllog = new Calllog(call1.getTel(), call2.getTel(), callTimeString, duration);
+                Calllog calllog = new Calllog(call1.getName(), call2.getName(), callTimeString, duration);
                 System.out.println(calllog);
                 //将通话记录刷写到数据文件中
                 out.write(calllog);

@@ -6,7 +6,10 @@ import com.wzl.ct.common.bean.Val;
  * 名称常量枚举类
  */
 public enum  Names implements Val {
-    NAMESPACE("ct");
+    NAMESPACE("ct"),
+    TABLE("ct:calllog"),
+    CF_CALLER("caller"),
+    TOPIC("ct");
 
     private  String name;
 
