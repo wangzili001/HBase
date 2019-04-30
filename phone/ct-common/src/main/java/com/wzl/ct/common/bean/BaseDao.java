@@ -1,5 +1,9 @@
 package com.wzl.ct.common.bean;
 
+import com.wzl.ct.common.Util.DateUtil;
+import com.wzl.ct.common.api.Colume;
+import com.wzl.ct.common.api.Rowkey;
+import com.wzl.ct.common.api.TableRef;
 import com.wzl.ct.common.constant.ValueConstant;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.*;
@@ -7,8 +11,10 @@ import org.apache.hadoop.hbase.client.*;
 import org.apache.hadoop.hbase.util.Bytes;
 
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -124,6 +130,50 @@ public abstract class BaseDao {
     }
 
     /**
+     * 增加对象 自动封装数据 将数据之间保存到hbase中去
+     * @param obj
+     * @throws Exception
+     */
+    protected void putData(Object obj) throws Exception{
+        //反射
+        Class clazz = obj.getClass();
+        TableRef tableRef = (TableRef) clazz.getAnnotation(TableRef.class);
+        String tableName = tableRef.value();
+        //获取表对象
+
+        Field[] fs = clazz.getDeclaredFields();
+        String stringRowKey = "";
+        for (Field f : fs) {
+            Rowkey rowkey = f.getAnnotation(Rowkey.class);
+            if(rowkey != null){
+                f.setAccessible(true);
+                stringRowKey = (String)f.get(obj);
+                break;
+            }
+        }
+        Connection connection = getConnection();
+        Table table = connection.getTable(TableName.valueOf(tableName));
+        Put put = new Put(Bytes.toBytes(stringRowKey));
+        for (Field f : fs) {
+            Colume colume = f.getAnnotation(Colume.class);
+            if(colume != null){
+                String family = colume.family();
+                String colName = colume.column();
+                if(colName == null || "".equals(colName)){
+                    colName = f.getName();
+                }
+                f.setAccessible(true);
+                String value = (String)f.get(obj);
+                put.addColumn(Bytes.toBytes(family),Bytes.toBytes(colName),Bytes.toBytes(value));
+            }
+        }
+        //增加数据
+        table.put(put);
+        //关闭表
+        table.close();
+    }
+
+    /**
      * 增加数据
      * @param name
      * @param put
@@ -134,6 +184,20 @@ public abstract class BaseDao {
         Table table = connection.getTable(TableName.valueOf(name));
         //增加数据
         table.put(put);
+        //关闭表
+        table.close();
+    }
+    /**
+     * 增加多条数据
+     * @param name
+     * @param puts
+     */
+    protected void putData(String name, List<Put> puts) throws  IOException{
+        //获取表对象
+        Connection connection = getConnection();
+        Table table = connection.getTable(TableName.valueOf(name));
+        //增加数据
+        table.put(puts);
         //关闭表
         table.close();
     }
@@ -149,7 +213,36 @@ public abstract class BaseDao {
         admin.deleteTable(tableName);
     }
 
+    /**
+     * 获取查询时startrow,stoprow集合
+     * @return
+     */
+    protected List<String[]> getStartRowkeys(String tel,String start,String end){
+        List<String[]> rowkeyss = new ArrayList<String[]>();
+        String startTime = start.substring(0,6);
+        String endTime = end.substring(0,6);
 
+        Calendar startCal = Calendar.getInstance();
+        startCal.setTime(DateUtil.parse(startTime,"yyyyMM"));
+        Calendar endCal = Calendar.getInstance();
+        endCal.setTime(DateUtil.parse(endTime,"yyyyMM"));
+
+        while (startCal.getTimeInMillis() <= endCal.getTimeInMillis()){
+            //当前时间
+            String nowTime = DateUtil.format(startCal.getTime(),"yyyyMM");
+
+            int regionNum = genRegionNum(tel,startTime);
+
+            String startRow = regionNum+"_"+tel+"_"+nowTime;
+            String stopRow = startRow + "|";
+            String[] rowkeys = {startRow,stopRow};
+            rowkeyss.add(rowkeys);
+            //月份+1
+            startCal.add(Calendar.MONTH,1);
+        }
+
+        return rowkeyss;
+    }
     /**
      * 计算分区号
      * @return

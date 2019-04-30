@@ -3,10 +3,13 @@ package com.wzl.ct.consumer.dao;
 import com.wzl.ct.common.bean.BaseDao;
 import com.wzl.ct.common.constant.Names;
 import com.wzl.ct.common.constant.ValueConstant;
+import com.wzl.ct.consumer.bean.Calllog;
 import org.apache.hadoop.hbase.client.Put;
 import org.apache.hadoop.hbase.util.Bytes;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * HBase数据访问对象
@@ -19,9 +22,20 @@ public class HBaseDao extends BaseDao {
         start();
 
         createNamespaceNX(Names.NAMESPACE.getValue());
-        createTableXX(Names.TABLE.getValue(), ValueConstant.REGION_COUNT,Names.CF_CALLER.getValue());
+        createTableXX(Names.TABLE.getValue(), ValueConstant.REGION_COUNT,Names.CF_CALLER.getValue(),Names.CF_CALLED.getValue());
 
         end();
+    }
+
+    /**
+     * 插入对象
+     * @param
+     * @throws Exception
+     */
+    public void insertData(Calllog log) throws Exception{
+        log.setRowkey(genRegionNum(log.getCall1(),log.getCalltime())+"_"+log.getCall1()+"_"+log.getCalltime()+
+                "_"+log.getCall2()+"_"+log.getDuration());
+        putData(log);
     }
 
     /**
@@ -45,7 +59,8 @@ public class HBaseDao extends BaseDao {
             //3-2）字符串的反转：在时间戳或者电话号码用的多 前面有规律 反转后避免数据热点问题
             //3-3）计算分区号：hashmap
         //rowkey=regionNum + call1 + time + call2 + duration
-        String rowkey = genRegionNum(call1,calltime)+"_"+call1+"_"+calltime+"_"+call2+"_"+duration;
+        String rowkey = genRegionNum(call1,calltime)+"_"+call1+"_"+calltime+"_"+call2+"_"+duration+"_1";
+        //主叫用户
         Put put = new Put(Bytes.toBytes(rowkey));
         byte[] family = Bytes.toBytes(Names.CF_CALLER.getValue());
 
@@ -53,7 +68,24 @@ public class HBaseDao extends BaseDao {
         put.addColumn(family,Bytes.toBytes("call2"),Bytes.toBytes(call2));
         put.addColumn(family,Bytes.toBytes("calltime"),Bytes.toBytes(calltime));
         put.addColumn(family,Bytes.toBytes("duration"),Bytes.toBytes(duration));
+        put.addColumn(family,Bytes.toBytes("flag"),Bytes.toBytes("1"));
+
+        String calledrowkey = genRegionNum(call2,calltime)+"_"+call2+"_"+calltime+"_"+call1+"_"+duration+"_0";
+
+        //被叫用户
+//        Put calledPut = new Put(Bytes.toBytes(calledrowkey));
+
+//        byte[] calledfamily = Bytes.toBytes(Names.CF_CALLER.getValue());
+//
+//        calledPut.addColumn(calledfamily,Bytes.toBytes("call1"),Bytes.toBytes(call2));
+//        calledPut.addColumn(calledfamily,Bytes.toBytes("call2"),Bytes.toBytes(call1));
+//        calledPut.addColumn(calledfamily,Bytes.toBytes("calltime"),Bytes.toBytes(calltime));
+//        calledPut.addColumn(calledfamily,Bytes.toBytes("duration"),Bytes.toBytes(duration));
+//        calledPut.addColumn(calledfamily,Bytes.toBytes("flag"),Bytes.toBytes("0"));
+        List<Put> puts = new ArrayList<Put>();
+        puts.add(put);
+//        puts.add(calledPut);
         //3.保存数据
-        putData(Names.TABLE.getValue(),put);
+        putData(Names.TABLE.getValue(),puts);
     }
 }

@@ -18,7 +18,7 @@ public class HBaseConn {
     public HBaseConn() {
         if(conf==null){
             conf = HBaseConfiguration.create();
-            conf.set("hbase.zookeeper.quorum","192.168.1.118:2181");
+            conf.set("hbase.zookeeper.quorum","jerry:2181");
         }
     }
 

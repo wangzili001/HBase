@@ -9,6 +9,7 @@ public enum  Names implements Val {
     NAMESPACE("ct"),
     TABLE("ct:calllog"),
     CF_CALLER("caller"),
+    CF_CALLED("called"),
     TOPIC("ct");
 
     private  String name;
